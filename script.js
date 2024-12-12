@@ -1,5 +1,7 @@
 const todoInput = document.getElementById("taskItem");
 const todoListUL = document.getElementById("taskListUL");
+const progressBar = document.getElementById("progress");
+const progressNumber = document.getElementById("progress-number");
 
 let todos = getTodos();
 updateList();
@@ -31,6 +33,8 @@ function updateList() {
         todoItem = createListItem(todo, todoIndex);
         todoListUL.append(todoItem);
     })
+
+    updateProgressBar();
 };
 
 function createListItem(todo, todoIndex) {
@@ -63,6 +67,7 @@ function createListItem(todo, todoIndex) {
     const checkbox = todoLi.querySelector("input");
     checkbox.addEventListener("change", () => {
         todos[todoIndex].completed = checkbox.checked;
+        updateProgressBar();
         saveTodos();
     });
     checkbox.checked = todo.completed;
@@ -76,6 +81,15 @@ function deleteTodo(todoIndex) {
     updateList();
 };
 
+function updateProgressBar() {
+    const totalTodos = todos.length;
+    const completedTodos = todos.filter(todo => todo.completed).length;
+    const percent = totalTodos > 0 ? (completedTodos / totalTodos) * 100 : 0;
+
+    progressBar.style.width = percent + "%";
+    progressNumber.innerHTML = `${completedTodos}/${totalTodos}`;
+}
+
 function saveTodos() {
     const todosJSON = JSON.stringify(todos);
     localStorage.setItem("todos", todosJSON);
@@ -85,3 +99,5 @@ function getTodos() {
     const todos = localStorage.getItem("todos") || "[]";
     return JSON.parse(todos);
 };
+
+// updateProgressBar();
