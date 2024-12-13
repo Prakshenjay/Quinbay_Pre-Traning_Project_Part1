@@ -1,9 +1,9 @@
 :root {
-    --background: #000430;
-    --mainBackground: #171c48;
+    --background: #0a0030;
+    --mainBackground: #2217488c;
     --text: #fff;
-    --purple: #828dff;
-    --teal: #24feee;
+    --purple: #b682ff;
+    --green: #00ff26;
 }
 
 * {
@@ -55,7 +55,7 @@ body {
 #progress {
     width: 0;
     height: 10px;
-    background-color: rgb(79, 214, 84);
+    background-color: var(--green);
     border-radius: 5px;
     transition: all 0.5s ease;
 }
